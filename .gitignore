@@ -1,0 +1,10 @@
+# Ignore Visual Studio files
+.vs/
+.vscode/
+
+# Ignore build and dependency files
+bin/
+obj/
+
+# Ignore SQLite databases
+*.db
