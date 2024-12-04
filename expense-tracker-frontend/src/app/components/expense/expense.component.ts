@@ -1,29 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http'; // For API calls
+import { HttpClient } from '@angular/common/http'; // For API calls
+import { AuthService } from '../../services/auth.service'; // Assuming you have an AuthService to get the current user
 
 @Component({
   selector: 'app-expense',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule], // Ensure HttpClientModule is included
+  imports: [CommonModule, FormsModule], 
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.css'],
 })
 export class ExpenseComponent implements OnInit {
-  newExpense = { description: '', amount: null, category: '', date: '' }; // Model for adding a new expense
+  newExpense = { description: '', amount: null, category: '', date: '' }; 
   expenses: { id: number; description: string; amount: number; category: string; date: string }[] = []; // Array for fetched expenses
-  private apiUrl = 'http://localhost:5093/api/expense'; // Update this with your API endpoint
+  private apiUrl = 'http://localhost:5093/api/expense'; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.getExpenses();
   }
 
   getExpenses(): void {
-    this.http.get<{ id: number; description: string; amount: number; category: string; date: string }[]>(this.apiUrl)
-      .subscribe({
+    const token = this.authService.getToken();  
+    if (token) {
+      this.http.get<{ id: number; description: string; amount: number; category: string; date: string }[]>(`${this.apiUrl}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      }).subscribe({
         next: (data) => {
           this.expenses = data;
         },
@@ -31,21 +35,31 @@ export class ExpenseComponent implements OnInit {
           console.error('Error fetching expenses:', err);
         },
       });
+    } else {
+      console.error('User is not authenticated');
+    }
   }
+
 
   addExpense(form: any): void {
     if (form.valid) {
-      this.http.post<{ id: number; description: string; amount: number; category: string; date: string }>(this.apiUrl, this.newExpense)
-        .subscribe({
+      const token = this.authService.getToken();  
+      if (token) {
+        this.http.post<{ id: number; description: string; amount: number; category: string; date: string }>(this.apiUrl, this.newExpense, {
+          headers: { Authorization: `Bearer ${token}` }
+        }).subscribe({
           next: (createdExpense) => {
-            this.expenses.push(createdExpense); // Add to the list of expenses
-            this.newExpense = { description: '', amount: null, category: '', date: '' }; // Reset form model
-            form.resetForm(); // Reset the form after submission
+            this.expenses.push(createdExpense); 
+            this.newExpense = { description: '', amount: null, category: '', date: '' }; 
+            form.resetForm(); 
           },
           error: (err) => {
             console.error('Error adding expense:', err);
           },
         });
+      } else {
+        console.error('User is not authenticated');
+      }
     }
   }
 }

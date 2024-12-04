@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
 import { ExpenseComponent } from './components/expense/expense.component';
-
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { AuthGuard } from './auth/auth.guard';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'expense', component: ExpenseComponent },
+  { path: 'login', component: LoginComponent  },
+  {path: 'register', component: RegisterComponent },
+  { path: 'expense', component: ExpenseComponent , canActivate: [AuthGuard] },
 ];
