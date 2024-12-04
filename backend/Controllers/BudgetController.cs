@@ -65,15 +65,13 @@ namespace ExpenseTrackerAPI.Controllers
         }
 
 
-        // GET: api/budget/current
         [HttpGet("current")]
         public async Task<IActionResult> GetCurrentBudget()
         {
-            var userId = GetUserIdFromToken(); // Retrieve the UserId from JWT token
+            var userId = GetUserIdFromToken(); 
             var currentMonth = DateTime.Now.Month;
             var currentYear = DateTime.Now.Year;
 
-            // Fetch the budget for the current month and year associated with the logged-in user
             var budget = await _context.Budgets
                 .FirstOrDefaultAsync(b => b.Month.Month == currentMonth && b.Month.Year == currentYear && b.UserId == userId);
 

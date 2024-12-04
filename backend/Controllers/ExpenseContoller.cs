@@ -8,16 +8,18 @@ using System.Linq;
 
 namespace ExpenseTrackerAPI.Controllers
 {
-	[ApiController]
-	[Route("api/[controller]")]
-	public class ExpenseController : ControllerBase
-	{
-		private readonly ExpenseTrackerContext _context;
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ExpenseController : ControllerBase
+    {
+        private readonly ExpenseTrackerContext _context;
 
-		public ExpenseController(ExpenseTrackerContext context)
-		{
-			_context = context;
-		}
+        public ExpenseController(ExpenseTrackerContext context)
+        {
+            _context = context;
+        }
+
+        // Method to extract the user ID from the JWT token
         private int GetUserIdFromToken()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user ID from the JWT token
@@ -29,15 +31,21 @@ namespace ExpenseTrackerAPI.Controllers
         }
 
         [HttpGet]
-		public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
-		{
-			return await _context.Expenses.ToListAsync();
-		}
+        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
+        {
+            var userId = GetUserIdFromToken(); // Get the user ID from the token
+            var expenses = await _context.Expenses
+                .Where(e => e.UserId == userId) // Filter expenses by user ID
+                .ToListAsync();
 
+            return Ok(expenses);
+        }
+
+        // Add a new expense for the authenticated user
         [HttpPost]
         public async Task<ActionResult<Expense>> AddExpense(Expense expense)
         {
-            var userId = GetUserIdFromToken(); // Get the user ID from the JWT token
+            var userId = GetUserIdFromToken(); // Get the user ID from the token
             expense.UserId = userId; // Associate the expense with the logged-in user
 
             _context.Expenses.Add(expense);
@@ -45,31 +53,32 @@ namespace ExpenseTrackerAPI.Controllers
             return CreatedAtAction(nameof(GetExpenses), new { id = expense.Id }, expense);
         }
 
-
-
-
         [HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteExpense(int id)
-		{
-			var expense = await _context.Expenses.FindAsync(id);
-			if (expense == null) return NotFound();
+        public async Task<IActionResult> DeleteExpense(int id)
+        {
+            var userId = GetUserIdFromToken(); // Get the user ID from the token
+            var expense = await _context.Expenses
+                .FirstOrDefaultAsync(e => e.Id == id && e.UserId == userId); // Ensure the expense belongs to the user
 
-			_context.Expenses.Remove(expense);
-			await _context.SaveChangesAsync();
-			return NoContent();
-		}
+            if (expense == null) return NotFound();
 
+            _context.Expenses.Remove(expense);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
 
         [HttpGet("monthly-expenses")]
         public async Task<IActionResult> GetMonthlyExpenses()
         {
-            var startDate = DateTime.Now.AddMonths(-12); 
+            var userId = GetUserIdFromToken(); // Get the user ID from the token
+            var startDate = DateTime.Now.AddMonths(-12);
+
             var expenses = await _context.Expenses
-                .Where(e => e.Date >= startDate) 
+                .Where(e => e.UserId == userId && e.Date >= startDate) // Filter by user ID and date
                 .ToListAsync();
 
             var groupedExpenses = expenses
-                .GroupBy(e => new { e.Date.Year, e.Date.Month }) 
+                .GroupBy(e => new { e.Date.Year, e.Date.Month })
                 .Select(g => new
                 {
                     Year = g.Key.Year,
@@ -89,21 +98,22 @@ namespace ExpenseTrackerAPI.Controllers
 
             return Ok(groupedExpenses);
         }
+
         [HttpGet("totals")]
         public async Task<IActionResult> GetExpenseTotals()
         {
+            var userId = GetUserIdFromToken(); 
             var now = DateTime.Now;
             var startOfCurrentMonth = new DateTime(now.Year, now.Month, 1);
             var startOfLastYear = startOfCurrentMonth.AddMonths(-12);
 
             var expenses = await _context.Expenses
-                .Where(e => e.Date >= startOfLastYear) 
+                .Where(e => e.UserId == userId && e.Date >= startOfLastYear) 
                 .ToListAsync();
 
             var totalForCurrentMonth = expenses
                 .Where(e => e.Date >= startOfCurrentMonth)
                 .Sum(e => e.Amount);
-
 
             return Ok(new
             {
@@ -111,15 +121,15 @@ namespace ExpenseTrackerAPI.Controllers
             });
         }
 
-
         [HttpGet("monthly-totals")]
         public async Task<IActionResult> GetMonthlyExpenseTotals()
         {
+            var userId = GetUserIdFromToken(); 
             var now = DateTime.Now;
             var startOfLastYear = now.AddMonths(-12);
 
             var expenses = await _context.Expenses
-                .Where(e => e.Date >= startOfLastYear)
+                .Where(e => e.UserId == userId && e.Date >= startOfLastYear) 
                 .ToListAsync();
 
             var monthlyTotals = expenses
@@ -136,8 +146,5 @@ namespace ExpenseTrackerAPI.Controllers
 
             return Ok(monthlyTotals);
         }
-
-
-
     }
 }
