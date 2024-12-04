@@ -1,0 +1,9 @@
+.main-content {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .sidebar.open + .main-content {
+    margin-left: 250px; 
+  }
+  

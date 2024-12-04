@@ -1,0 +1,30 @@
+/* Container for the whole form and list */
+.expense-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Form row spacing */
+.form-row {
+  margin-bottom: 15px;
+}
+
+/* Style for the expense list items */
+.expense-list li {
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+
+.expense-list li:hover {
+  transform: scale(1.05); /* Slight scale-up effect on hover */
+}
+
+.expense-list li .badge {
+  font-size: 1.2em;
+  padding: 10px;
+  border-radius: 5px;
+}

@@ -1,0 +1,26 @@
+<div class="sidebar text-white" [class.open]="isOpen">
+  <button (click)="toggleSidebar()" class="btn btn-outline-light toggle-btn">
+    ☰
+  </button>
+
+
+  <div class="sidebar-menu">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <button (click)="navigateTo('/expense')" class="btn btn-dark w-100 text-start  text-white nav-link">
+          Expenses
+        </button>
+      </li>
+      <li class="nav-item">
+        <button (click)="navigateTo('/history')" class="btn btn-dark w-100 text-start text-white nav-link">
+          History
+        </button>
+      </li>
+      <li class="nav-item">
+        <button (click)="navigateTo('/logout')" class="btn btn-dark w-100 text-start text-white nav-link">
+          Logout
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
