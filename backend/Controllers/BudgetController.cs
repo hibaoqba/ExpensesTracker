@@ -28,10 +28,10 @@ namespace ExpenseTrackerAPI.Controllers
             {
                 throw new UnauthorizedAccessException("User is not authenticated.");
             }
-            return int.Parse(userId); // Parse the user ID from the token
+            return int.Parse(userId); 
         }
 
-        // POST: api/budget
+       
         [HttpPost]
         public async Task<IActionResult> SetBudget([FromBody] Budget budget)
         {
@@ -40,24 +40,21 @@ namespace ExpenseTrackerAPI.Controllers
                 return BadRequest("Le budget est invalide.");
             }
 
-            var userId = GetUserIdFromToken(); // Retrieve the UserId from the JWT token
+            var userId = GetUserIdFromToken(); 
 
-            // Check if there is already a budget set for the same month and user
             var existingBudget = await _context.Budgets
                 .FirstOrDefaultAsync(b => b.Month.Year == budget.Month.Year
                                           && b.Month.Month == budget.Month.Month
                                           && b.UserId == userId);
 
-            // If a budget exists, remove it
             if (existingBudget != null)
             {
                 _context.Budgets.Remove(existingBudget);
             }
 
-            // Set the UserId for the new budget
-            budget.UserId = userId;  // Associate the budget with the logged-in user
+            budget.UserId = userId;  
 
-            // Add the new budget to the context
+    
             _context.Budgets.Add(budget);
             await _context.SaveChangesAsync();
 

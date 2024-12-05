@@ -7,7 +7,6 @@ using ExpenseTrackerAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
@@ -38,7 +37,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddControllers();
 
-// Register IHttpContextAccessor to access the current user in controllers
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<TokenService>();

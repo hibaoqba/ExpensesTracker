@@ -8,9 +8,12 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SidebarComponent {
   isOpen = false; 
-
+  isSidebarVisible: boolean = false;
   constructor(private router: Router, private authService: AuthService) {}
-
+  ngOnInit(): void {
+    // Check if the user is authenticated and set sidebar visibility
+    this.isSidebarVisible = this.authService.isLoggedIn();
+  }
   toggleSidebar(): void {
     this.isOpen = !this.isOpen;
   }
