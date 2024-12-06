@@ -32,11 +32,13 @@
 
 .nav-item {
   margin-bottom: 10px; 
+  margin-top: 10px;
 }
 
 .nav-link {
   border-radius: 0;
   padding: 12px;
+  font-size: large;
 }
 
 .nav-link:hover {

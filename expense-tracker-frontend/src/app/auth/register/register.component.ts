@@ -1,33 +1,48 @@
 import { Component } from '@angular/core';
+import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http'; // For API calls
-
 @Component({
   selector: 'app-register',
-  standalone: true, // Standalone component
-  imports: [FormsModule, HttpClientModule], // Include FormsModule and HttpClientModule
+  standalone: true,
+  imports: [FormsModule, HttpClientModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  user = { 
-    username: '', 
-    password: '', 
-    confirmPassword: '', // Add confirmPassword
-    email: '', 
-    fullName: '' 
-  }; // Model for user registration
+  user = {
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+    fullName: '',
+  };
   private apiUrl = 'http://localhost:5093/api/auth/register'; // API endpoint for registration
+  successMessage = '';
+  showSuccessMessage = false; // Controls visibility of the success message
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onRegister(form: any): void {
-    if (form.valid && this.user.password === this.user.confirmPassword) {  // Ensure passwords match
+    if (form.valid && this.user.password === this.user.confirmPassword) {
       this.http.post(this.apiUrl, this.user, { responseType: 'text' }).subscribe({
         next: (response) => {
-          console.log('Registration successful:', response);  // response will now be the plain text
-          this.user = { username: '', password: '', confirmPassword: '', email: '', fullName: '' }; // Reset user model
-          form.resetForm(); // Reset the form
+          console.log('Registration successful:', response);
+          this.successMessage = 'Registration successful! You can now log in.';
+          this.showSuccessMessage = true; // Show the success message
+          this.user = {
+            username: '',
+            password: '',
+            confirmPassword: '',
+            email: '',
+            fullName: '',
+          };
+          form.resetForm();
+          // Optionally hide the message and navigate
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+            this.router.navigate(['/login']);
+          }, 3000);
         },
         error: (err) => {
           console.error('Error during registration:', err);
@@ -37,4 +52,4 @@ export class RegisterComponent {
       console.error('Passwords do not match or form is invalid');
     }
   }
-}  
+}

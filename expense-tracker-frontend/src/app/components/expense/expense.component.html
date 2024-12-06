@@ -1,11 +1,16 @@
 <div class="expense-container container mt-5">
   <h2 class="text-center mb-4">Expense Tracker</h2>
   
+  <!-- Progress Bar -->
+  <div class="progress-bar-container mb-4">
+    <h4>Total Expenses: {{ totalForCurrentMonth | currency }}</h4>
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    <p>{{ progress | number: '1.0-0' }}% of your budget</p>
+  </div>
+
   <!-- Expense Form -->
   <form class="expense-form" (ngSubmit)="addExpense(expenseForm)" #expenseForm="ngForm">
-    <div class="form-row">
-      
-      <!-- Description Input -->
+    <div class="form-row row">
       <div class="col-md-6 form-group mb-3">
         <label for="description" class="form-label">Description</label>
         <input
@@ -19,7 +24,6 @@
         />
       </div>
 
-      <!-- Amount Input -->
       <div class="col-md-6 form-group mb-3">
         <label for="amount" class="form-label">Amount</label>
         <input
@@ -33,7 +37,6 @@
         />
       </div>
 
-      <!-- Category Select -->
       <div class="col-md-6 form-group mb-3">
         <label for="category" class="form-label">Category</label>
         <select
@@ -50,7 +53,6 @@
         </select>
       </div>
 
-      <!-- Date Input -->
       <div class="col-md-6 form-group mb-3">
         <label for="date" class="form-label">Date</label>
         <input
@@ -63,7 +65,6 @@
         />
       </div>
       
-      <!-- Submit Button -->
       <div class="col-12 text-center">
         <button type="submit" class="btn btn-primary btn-lg mt-3" [disabled]="expenseForm.invalid">
           Add Expense
@@ -72,7 +73,6 @@
     </div>
   </form>
 
-  <!-- Expense List -->
   <ul class="expense-list mt-4">
     <li *ngFor="let exp of expenses" class="list-group-item d-flex justify-content-between align-items-center">
       <div>
@@ -80,8 +80,9 @@
         <br />
         <small class="text-muted">{{ exp.category }} - {{ exp.date | date }}</small>
       </div>
-      <div>
-        <span class="badge badge-primary text-black">{{ exp.amount | currency }}</span>
+      <div class="d-flex">
+        <span class="badge badge-primary mr-3 text-black">{{ exp.amount | currency }}</span>
+        <button (click)="deleteExpense(exp.id)" class="btn btn-danger btn-sm">Delete</button>
       </div>
     </li>
   </ul>

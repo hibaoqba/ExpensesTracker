@@ -1,3 +1,9 @@
+<!-- Success Message -->
+<div class="alert alert-success mt-3" [class.d-none]="!showSuccessMessage" role="alert">
+  {{ successMessage }}
+</div>
+
+<!-- Registration Form -->
 <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)" class="form-container">
   <div class="form-group">
     <label for="username">Username</label>
@@ -33,6 +39,10 @@
       class="form-control"
       required
     />
+    <!-- Password Mismatch Error -->
+    <small [class.d-none]="user.password === user.confirmPassword || !user.password || !user.confirmPassword" class="text-danger">
+      Passwords do not match.
+    </small>
   </div>
 
   <div class="form-group">
@@ -59,11 +69,17 @@
     />
   </div>
 
-  <button type="submit" class="btn btn-primary w-100" [disabled]="!registerForm.valid || user.password !== user.confirmPassword">
+  <button
+    type="submit"
+    class="btn btn-primary w-100"
+    [disabled]="!registerForm.valid || user.password !== user.confirmPassword"
+  >
     Register
   </button>
 
   <div class="form-footer">
-    <p class="text-center mt-3">Already have an account? <a href="/login" class="text-primary">Log in</a></p>
+    <p class="text-center mt-3">
+      Already have an account? <a href="/login" class="text-primary">Log in</a>
+    </p>
   </div>
 </form>

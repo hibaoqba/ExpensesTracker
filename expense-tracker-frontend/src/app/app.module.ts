@@ -5,17 +5,21 @@ import { HttpClientModule } from '@angular/common/http';  // For HTTP requests
 import { AppComponent } from './app.component';
 import { ExpenseComponent } from './components/expense/expense.component';
 import { LoginComponent } from './auth/login/login.component'; // Make sure to import LoginComponent
+import { BudgetComponent } from './components/budget/budget.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExpenseComponent,
-    LoginComponent  // Declare LoginComponent here
+    BudgetComponent,
+    LoginComponent  
   ],
   imports: [
     BrowserModule,
-     HttpClientModule, // Ensure HttpClientModule is added here
-    FormsModule  // Import FormsModule here for ngModel
+     HttpClientModule, 
+     CommonModule,
+    FormsModule  
   ],
   providers: [],
   bootstrap: [AppComponent],

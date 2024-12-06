@@ -23,5 +23,13 @@ export class ExpenseService {
     return this.http.get(this.apiUrl, {
       headers: { Authorization: `Bearer ${token}` }
     });
+    
   }
+  deleteExpense(id: number): Observable<any> {
+    const token = this.authService.getToken();  
+    return this.http.delete(`${this.apiUrl}/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
+  
 }
