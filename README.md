@@ -51,9 +51,18 @@ To get started with the frontend:
 2. Clone the repository
 
 3. Install the dependencies:
-npm install
+   
+npm install @fortawesome/fontawesome-free@^6.7.1
+@swimlane/ngx-charts@^21.0.0
+bootstrap@^5.3.3
+chart.js@^4.4.7
+d3@^7.9.0
+express@^4.18.2
+ng2-charts@^7.0.0
 
-4. Serve the Angular application
+
+
+5. Serve the Angular application
 
 ## Backend Setup:
 
