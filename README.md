@@ -65,7 +65,7 @@ ng2-charts@^7.0.0
 ## Backend Setup:
 
 1. Navigate to the backend directory:
-cd expense-tracker-backend
+cd backend
 
 2. Restore the dependencies:
 dotnet restore
