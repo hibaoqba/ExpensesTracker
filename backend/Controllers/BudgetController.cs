@@ -23,7 +23,7 @@ namespace ExpenseTrackerAPI.Controllers
 
         private int GetUserIdFromToken()
         {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);  // Get the user ID from JWT token
+            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);  
             if (string.IsNullOrEmpty(userId))
             {
                 throw new UnauthorizedAccessException("User is not authenticated.");

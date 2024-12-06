@@ -8,7 +8,7 @@ namespace ExpenseTrackerAPI.Services
 {
 	public class TokenService
 	{
-		private readonly string _secretKey = "3b76a827d00476b315b7f0a7593e6e6ad7345f78f945f085e79a390eb93fc548"; // Replace with a secure key
+		private readonly string _secretKey = "3b76a827d00476b315b7f0a7593e6e6ad7345f78f945f085e79a390eb93fc548"; 
 
 		public string GenerateToken(User user)
 		{
