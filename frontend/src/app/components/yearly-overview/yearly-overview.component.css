@@ -2,16 +2,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  gap: 20px;
+  gap: 10px;
   padding: 20px;
   background-color: white;
+  margin-top: 50px;
+  margin-left:120px ;
 }
-
+.mat-card1{
+  background-color: white;
+}
 .month-card {
   width: 250px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  background-color: white;
+  background-color: white !important;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -23,7 +27,7 @@
 
 .mat-card-header {
   background-color: #4caf50; 
-  color: white;
+  color: white !important;
   padding: 12px 16px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -37,6 +41,7 @@
   align-items: center;
   padding: 20px;
   text-align: center;
+  background-color: white;
 }
 
 mat-progress-spinner {
