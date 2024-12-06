@@ -9,18 +9,21 @@ import { BudgetComponent } from './components/budget/budget.component';
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { YearlyOverviewComponent } from './components/yearly-overview/yearly-overview.component';
+import { CurrencyPipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
     ExpenseComponent,
     BudgetComponent,
-    LoginComponent  
+    LoginComponent ,
+    YearlyOverviewComponent 
   ],
   imports: [
     BrowserModule,
      HttpClientModule, 
      CommonModule,
+     CurrencyPipe,
     FormsModule  
   ],
   providers: [],

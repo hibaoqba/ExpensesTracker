@@ -79,3 +79,20 @@ h2 {
   margin-bottom: 20px;
   font-weight: 600;
 }
+.budget-status-notice {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.under-budget {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.over-budget {
+  background-color: #f8d7da;
+  color: #721c24;
+}

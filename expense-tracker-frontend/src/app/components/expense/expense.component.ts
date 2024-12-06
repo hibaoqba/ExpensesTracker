@@ -21,13 +21,15 @@ export class ExpenseComponent implements OnInit {
   totalForCurrentMonth: number = 0;
   totalBudget: number = 0; 
   progress: number = 0;
-
+  budgetStatusMessage: string = '';
+  isOverBudget: boolean = false;
   constructor(private http: HttpClient, private authService: AuthService, private expenseService: ExpenseService, private budgetService: BudgetService) {}
 
   ngOnInit(): void {
     this.getExpenses();
     this.getExpenseTotals();
     this.getCurrentBudget();
+    
   }
 
   getExpenses(): void {
@@ -117,5 +119,17 @@ export class ExpenseComponent implements OnInit {
   }
   calculateProgress(): void {
     this.progress = Math.min((this.totalForCurrentMonth / this.totalBudget) * 100, 100); 
+    this.updateBudgetStatusMessage();
+  }
+  updateBudgetStatusMessage(): void {
+    if (this.totalForCurrentMonth <= this.totalBudget) {
+      const remaining = this.totalBudget - this.totalForCurrentMonth;
+      this.budgetStatusMessage = `You are within budget. Remaining amount: ${remaining} $.`;
+      this.isOverBudget = false;
+    } else {
+      const exceeded = this.totalForCurrentMonth - this.totalBudget;
+      this.budgetStatusMessage = `You have exceeded your budget by ${exceeded} $.`;
+      this.isOverBudget = true;
+    }
   }
 }

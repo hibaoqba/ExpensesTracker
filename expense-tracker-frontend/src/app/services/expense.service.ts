@@ -31,5 +31,10 @@ export class ExpenseService {
       headers: { Authorization: `Bearer ${token}` }
     });
   }
-  
+  getMonthlyExpenseTotals(): Observable<any> {
+    const token = this.authService.getToken();
+    return this.http.get(`${this.apiUrl}/monthly-totals`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  }
 }

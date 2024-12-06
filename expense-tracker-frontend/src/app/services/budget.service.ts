@@ -7,12 +7,12 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class BudgetService {
-  private apiUrl = 'http://localhost:5093/api/budget'; // Replace with your API base URL
+  private apiUrl = 'http://localhost:5093/api/budget'; 
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = this.authService.getToken(); // Assume this retrieves the JWT token
+    const token = this.authService.getToken(); 
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
