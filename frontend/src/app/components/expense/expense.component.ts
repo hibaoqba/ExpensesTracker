@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { ExpenseService } from '../../services/expense.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { BudgetService } from '../../services/budget.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-expense',
   standalone: true,
@@ -23,7 +24,7 @@ export class ExpenseComponent implements OnInit {
   progress: number = 0;
   budgetStatusMessage: string = '';
   isOverBudget: boolean = false;
-  constructor(private http: HttpClient, private authService: AuthService, private expenseService: ExpenseService, private budgetService: BudgetService) {}
+  constructor(private http: HttpClient, private authService: AuthService,private snackBar: MatSnackBar, private expenseService: ExpenseService, private budgetService: BudgetService) {}
 
   ngOnInit(): void {
     this.getExpenses();
@@ -72,21 +73,19 @@ export class ExpenseComponent implements OnInit {
     }
   }
 
+  
   deleteExpense(id: number): void {
-    if (confirm('Are you sure you want to delete this expense?')) {
-      this.expenseService.deleteExpense(id).subscribe({
-        next: () => {
-          this.expenses = this.expenses.filter(exp => exp.id !== id); 
-          console.log('Expense deleted successfully');
-          this.getExpenseTotals(); 
-        },
-        error: (err) => {
-          console.error('Error deleting expense:', err);
-        },
-      });
-    }
+    this.expenseService.deleteExpense(id).subscribe({
+      next: () => {
+        this.expenses = this.expenses.filter(exp => exp.id !== id); 
+        this.getExpenseTotals(); 
+        this.snackBar.open('Expense deleted successfully', 'Close', { duration: 3000 });
+      },
+      error: (err) => {
+        console.error('Error deleting expense:', err);
+      },
+    });
   }
-
   getExpenseTotals(): void {
     const token = this.authService.getToken();
     if (token) {
