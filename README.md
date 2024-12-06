@@ -1,6 +1,6 @@
 # Expense Tracker
 
-This is a full-stack web application for tracking expenses and budgets. The application consists of a **frontend** built with Angular 18 and a **backend** built with **.NET 8**. It allows users to manage their expenses, track budgets, and get an overview of their financial data with various charts.
+This is a full-stack web application for tracking expenses and budgets. The application consists of a **frontend** built with Angular 18 and a **backend** built with **.NET 8**. It allows users to manage their expenses, track budgets, and get an overview of their financial data.
 
 ## Table of Contents
 
