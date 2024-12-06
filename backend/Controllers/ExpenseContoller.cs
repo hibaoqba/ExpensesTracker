@@ -34,12 +34,18 @@ namespace ExpenseTrackerAPI.Controllers
         public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
         {
             var userId = GetUserIdFromToken();
+
+            var now = DateTime.Now;
+            var startOfMonth = new DateTime(now.Year, now.Month, 1);
+            var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+
             var expenses = await _context.Expenses
-                .Where(e => e.UserId == userId) 
+                .Where(e => e.UserId == userId && e.Date >= startOfMonth && e.Date <= endOfMonth)
                 .ToListAsync();
 
             return Ok(expenses);
         }
+
 
         [HttpPost]
         public async Task<ActionResult<Expense>> AddExpense(Expense expense)
@@ -119,6 +125,33 @@ namespace ExpenseTrackerAPI.Controllers
                 TotalForCurrentMonth = totalForCurrentMonth,
             });
         }
+        [HttpGet("totals-by-category")]
+        public async Task<IActionResult> GetTotalsByCategory()
+        {
+            try
+            {
+                var userId = GetUserIdFromToken(); 
+                var now = DateTime.Now;
+                var startOfCurrentMonth = new DateTime(now.Year, now.Month, 1);
+
+                var totalsByCategory = await _context.Expenses
+                    .Where(e => e.UserId == userId && e.Date >= startOfCurrentMonth)
+                    .GroupBy(e => e.Category)
+                    .Select(g => new
+                    {
+                        Category = g.Key,
+                        Total = g.Sum(e => e.Amount)
+                    })
+                    .ToListAsync();
+
+                return Ok(totalsByCategory);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
+
 
         [HttpGet("monthly-totals")]
         public async Task<IActionResult> GetMonthlyExpenseTotals()

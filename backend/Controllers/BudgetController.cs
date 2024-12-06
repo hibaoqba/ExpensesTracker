@@ -31,7 +31,7 @@ namespace ExpenseTrackerAPI.Controllers
             return int.Parse(userId); 
         }
 
-       
+
         [HttpPost]
         public async Task<IActionResult> SetBudget([FromBody] Budget budget)
         {
@@ -40,7 +40,7 @@ namespace ExpenseTrackerAPI.Controllers
                 return BadRequest("Le budget est invalide.");
             }
 
-            var userId = GetUserIdFromToken(); 
+            var userId = GetUserIdFromToken();
 
             var existingBudget = await _context.Budgets
                 .FirstOrDefaultAsync(b => b.Month.Year == budget.Month.Year
@@ -52,14 +52,14 @@ namespace ExpenseTrackerAPI.Controllers
                 _context.Budgets.Remove(existingBudget);
             }
 
-            budget.UserId = userId;  
+            budget.UserId = userId;
 
-    
             _context.Budgets.Add(budget);
             await _context.SaveChangesAsync();
 
-            return Ok("Budget défini avec succès.");
+            return Ok(budget);
         }
+
 
 
         [HttpGet("current")]
