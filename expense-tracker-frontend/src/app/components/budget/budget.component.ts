@@ -10,12 +10,12 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
 })
 export class BudgetComponent implements OnInit {
-  currentBudget: any = null; // Stores the current month's budget details
-  budgetAmount: number = 0; // For setting a new budget
-  budgetStatus: any = null; // Stores the current month's budget status
-  last12Months: any[] = []; // Stores data for the last 12 months
-  message: string = ''; // For success/failure messages
-  error: string = ''; // For error messages
+  currentBudget: any = null;
+  budgetAmount: number = 0; 
+  budgetStatus: any = null; 
+  last12Months: any[] = []; 
+  message: string = ''; 
+  error: string = ''; 
 
   constructor(private budgetService: BudgetService) {}
 
@@ -25,12 +25,11 @@ export class BudgetComponent implements OnInit {
     this.getLast12MonthsBudgets();
   }
 
-  // Fetch the current budget
   getCurrentBudget(): void {
     this.budgetService.getCurrentBudget().subscribe({
       next: (response) => {
         this.currentBudget = response;
-        this.budgetAmount = response.monthlyBudget || 0; // Pre-fill the budget input
+        this.budgetAmount = response.monthlyBudget || 0;
         this.error = '';
       },
       error: (err) => {
@@ -40,7 +39,6 @@ export class BudgetComponent implements OnInit {
     });
   }
 
-  // Set a new budget
   setBudget(): void {
     if (this.budgetAmount <= 0) {
       this.error = 'Please enter a valid budget amount.';
@@ -49,14 +47,14 @@ export class BudgetComponent implements OnInit {
 
     const budgetData = {
       monthlyBudget: this.budgetAmount,
-      month: new Date().toISOString(), // Current month
+      month: new Date().toISOString(), 
     };
 
     this.budgetService.setBudget(budgetData).subscribe({
       next: (response) => {
         this.message = 'Budget set successfully.';
-        this.currentBudget = response; // Immediately update current budget
-        this.getBudgetStatus(); // Refresh the budget status
+        this.currentBudget = response; 
+        this.getBudgetStatus(); 
         this.error = '';
       },
       error: (err) => {
@@ -66,7 +64,6 @@ export class BudgetComponent implements OnInit {
     });
   }
 
-  // Fetch the budget status
   getBudgetStatus(): void {
     this.budgetService.checkBudgetStatus().subscribe({
       next: (response) => {
@@ -80,7 +77,6 @@ export class BudgetComponent implements OnInit {
     });
   }
 
-  // Fetch budgets for the last 12 months
   getLast12MonthsBudgets(): void {
     this.budgetService.getLast12MonthsBudgets().subscribe({
       next: (response) => {

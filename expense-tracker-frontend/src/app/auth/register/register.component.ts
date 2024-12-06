@@ -17,9 +17,9 @@ export class RegisterComponent {
     email: '',
     fullName: '',
   };
-  private apiUrl = 'http://localhost:5093/api/auth/register'; // API endpoint for registration
+  private apiUrl = 'http://localhost:5093/api/auth/register'; 
   successMessage = '';
-  showSuccessMessage = false; // Controls visibility of the success message
+  showSuccessMessage = false; 
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -29,7 +29,7 @@ export class RegisterComponent {
         next: (response) => {
           console.log('Registration successful:', response);
           this.successMessage = 'Registration successful! You can now log in.';
-          this.showSuccessMessage = true; // Show the success message
+          this.showSuccessMessage = true; 
           this.user = {
             username: '',
             password: '',
@@ -38,7 +38,6 @@ export class RegisterComponent {
             fullName: '',
           };
           form.resetForm();
-          // Optionally hide the message and navigate
           setTimeout(() => {
             this.showSuccessMessage = false;
             this.router.navigate(['/login']);

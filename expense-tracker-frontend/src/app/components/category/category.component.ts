@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { CommonModule } from '@angular/common'; // Use CommonModule, NOT BrowserModule
+import { CommonModule } from '@angular/common'; 
 import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-category',
@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit {
   isDoughnut = true;
   legendPosition = 'below';
   colorScheme = {
-    domain: ['#ff6347', '#4682b4', '#ffd700', '#32cd32', '#9370db'] // Custom colors
+    domain: ['#ff6347', '#4682b4', '#ffd700', '#32cd32', '#9370db'] 
   };
   
   apiUrl = 'http://localhost:5093/api/expense/totals-by-category'; 

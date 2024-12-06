@@ -20,7 +20,7 @@ export class LoginComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService // Inject AuthService
+    private authService: AuthService 
   ) {}
 
   onLogin(form: any): void {
@@ -28,8 +28,8 @@ export class LoginComponent {
       this.authService.login(this.credentials).subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          form.resetForm(); // Reset form
-          this.router.navigate(['/expense']); // Navigate to /expense
+          form.resetForm(); 
+          this.router.navigate(['/expense']); 
         },
         error: (err) => {
           console.error('Error during login:', err);

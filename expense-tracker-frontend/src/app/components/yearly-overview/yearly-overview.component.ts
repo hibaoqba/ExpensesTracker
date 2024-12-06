@@ -62,14 +62,14 @@ export class YearlyOverviewComponent {
       return {
         ...budget,
         totalExpense,
-        savings,  // Add savings field
+        savings,  
         isExceeded: totalExpense > budget.budget
       };
     });
   }
 
   getProgressBarValue(data: any): number {
-    return (data.totalExpense / data.budget) * 100;  // Percentage of budget used
+    return (data.totalExpense / data.budget) * 100;  
   }
 
   getMonthName(month: number): string {

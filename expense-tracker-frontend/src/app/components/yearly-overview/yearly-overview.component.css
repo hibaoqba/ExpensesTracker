@@ -4,14 +4,14 @@
   justify-content: space-evenly;
   gap: 20px;
   padding: 20px;
-  background-color: #ffffff; 
+  background-color: white;
 }
 
 .month-card {
   width: 250px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  background-color: #ffffff;
+  background-color: white;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }

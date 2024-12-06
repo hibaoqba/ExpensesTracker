@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http'; // For API calls
-import { AuthService } from '../../services/auth.service'; // Assuming you have an AuthService to get the current user
+import { HttpClient } from '@angular/common/http'; 
+import { AuthService } from '../../services/auth.service'; 
 import { ExpenseService } from '../../services/expense.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { BudgetService } from '../../services/budget.service';

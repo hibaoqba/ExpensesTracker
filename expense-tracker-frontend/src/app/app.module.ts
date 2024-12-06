@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';  // Import FormsModule here
-import { HttpClientModule } from '@angular/common/http';  // For HTTP requests
+import { FormsModule } from '@angular/forms';  
+import { HttpClientModule } from '@angular/common/http';  
 import { AppComponent } from './app.component';
 import { ExpenseComponent } from './components/expense/expense.component';
-import { LoginComponent } from './auth/login/login.component'; // Make sure to import LoginComponent
+import { LoginComponent } from './auth/login/login.component'; 
 import { BudgetComponent } from './components/budget/budget.component';
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
