@@ -72,7 +72,7 @@ export class BudgetComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching budget status:', err);
-        this.error = 'Could not fetch budget status.';
+        this.error = 'Please set a budget';
       },
     });
   }

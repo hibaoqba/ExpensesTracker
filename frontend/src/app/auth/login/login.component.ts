@@ -29,7 +29,7 @@ export class LoginComponent {
         next: (response) => {
           console.log('Login successful:', response);
           form.resetForm(); 
-          this.router.navigate(['/expense']); 
+          this.router.navigate(['/budget']); 
         },
         error: (err) => {
           console.error('Error during login:', err);
