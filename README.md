@@ -75,11 +75,17 @@ dotnet run
 
 ## API endpoints
 1. **budget**
-GET /api/budget: Fetches all budgets.
-POST /api/budget: Creates a new budget.
-GET /api/budget/current: Fetches the current month's budget.
-GET /api/budget/status: Checks if expenses for the current month exceed the budget.
-GET /api/budget/last-12-months: Fetches budgets for the last 12 months.
+   
+**GET /api/budget**: Fetches all budgets.
+
+**POST /api/budget**: Creates a new budget.
+
+**GET /api/budget/current**: Fetches the current month's budget.
+
+**GET /api/budget/status**: Checks if expenses for the current month exceed the budget.
+
+**GET /api/budget/last-12-months**: Fetches budgets for the last 12 months.
+
 
 2.**Expense**
 **GET /api/expense**: Fetches all expenses.
@@ -93,6 +99,7 @@ GET /api/budget/last-12-months: Fetches budgets for the last 12 months.
 **GET /api/expense/totals-by-category**: Fetches total expenses by category for the current month.
 
 **GET /api/expense/monthly-totals**: Fetches monthly expense totals for the last 12 months.
+
 
 3.**Authentication**:
 
