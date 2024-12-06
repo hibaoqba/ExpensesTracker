@@ -58,8 +58,7 @@ export class ExpenseComponent implements OnInit {
           headers: { Authorization: `Bearer ${token}` }
         }).subscribe({
           next: (createdExpense) => {
-            this.expenses.push(createdExpense);
-            this.newExpense = { description: '', amount: null, category: '', date: '' };
+            this.getExpenses();
             form.resetForm();
             this.getExpenseTotals(); 
           },
