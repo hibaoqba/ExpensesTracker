@@ -10,13 +10,12 @@ import { Subscription } from 'rxjs';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   isOpen = false;
-  isSidebarVisible = false; // Sidebar visibility state
+  isSidebarVisible = false; 
   private authSubscription!: Subscription;
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Subscribe to authentication state
     this.authSubscription = this.authService.isAuthenticated$.subscribe(
       (isAuthenticated) => {
         this.isSidebarVisible = isAuthenticated;
@@ -38,7 +37,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe to prevent memory leaks
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }

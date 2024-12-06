@@ -53,11 +53,16 @@
 .text-start {
   text-align: left;
 }
-
+.mirror{
+  transform: scaleX(-1);
+}
 .w-100 {
   width: 100%;
 }
-
+i{
+  margin-right: 10px;
+  margin-left: 10px;
+}
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;

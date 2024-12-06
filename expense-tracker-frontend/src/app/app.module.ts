@@ -7,6 +7,8 @@ import { ExpenseComponent } from './components/expense/expense.component';
 import { LoginComponent } from './auth/login/login.component'; // Make sure to import LoginComponent
 import { BudgetComponent } from './components/budget/budget.component';
 import { CommonModule } from '@angular/common';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [

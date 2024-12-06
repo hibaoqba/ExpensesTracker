@@ -25,24 +25,35 @@ export class AuthService {
   login(credentials: any) {
     return this.http.post<{ token: string }>(`${this.baseUrl}/login`, credentials).pipe(
       tap((response) => {
-        localStorage.setItem('token', response.token);
-        this.isAuthenticatedSubject.next(true); // Notify components about login
+        this.setToken(response.token);
+        this.isAuthenticatedSubject.next(true);
       })
     );
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.isAuthenticatedSubject.next(false); // Notify components about logout
+    this.removeToken();
+    this.isAuthenticatedSubject.next(false);
     this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getToken();
   }
 
-  // Add getToken back for compatibility
   getToken(): string | null {
     return typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  }
+
+  private setToken(token: string): void {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('token', token);
+    }
+  }
+
+  private removeToken(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+    }
   }
 }
