@@ -1,0 +1,82 @@
+<div class="alert alert-success mt-3" [class.d-none]="!showSuccessMessage" role="alert">
+  {{ successMessage }}
+</div>
+
+<form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)" class="form-container">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      [(ngModel)]="user.username"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="user.password"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      name="confirmPassword"
+      [(ngModel)]="user.confirmPassword"
+      class="form-control"
+      required
+    />
+    <small [class.d-none]="user.password === user.confirmPassword || !user.password || !user.confirmPassword" class="text-danger">
+      Passwords do not match.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="user.email"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="fullName">Full Name</label>
+    <input
+      type="text"
+      id="fullName"
+      name="fullName"
+      [(ngModel)]="user.fullName"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary w-100"
+    [disabled]="!registerForm.valid || user.password !== user.confirmPassword"
+  >
+    Register
+  </button>
+
+  <div class="form-footer">
+    <p class="text-center mt-3">
+      Already have an account? <a href="/login" class="text-primary">Log in</a>
+    </p>
+  </div>
+</form>
