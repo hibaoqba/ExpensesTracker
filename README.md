@@ -1,6 +1,7 @@
 # Expense Tracker
 
 This is a full-stack web application for tracking expenses and budgets. The application consists of a **frontend** built with Angular 18 and a **backend** built with **.NET 8**. It allows users to manage their expenses, track budgets, and get an overview of their financial data.
+I have used SQLite  for easier setup and a seamless integration.
 
 ## Table of Contents
 
@@ -16,10 +17,10 @@ This is a full-stack web application for tracking expenses and budgets. The appl
 
 The **Expense Tracker** project consists of two parts:
 
-- **Frontend**: Built using **Angular**. This part handles the user interface where users can input their expenses, view budget summaries, track monthly expenses, and see progress on their budgets.
+- **Frontend**: Built using **Angular**. This part handles the user interface where users can sign in, input their expenses, view budget summaries, track monthly expenses, and see progress on their budgets.
   
-- **Backend**: Built using **.NET 8**. The backend handles API requests, manages the expense and budget data, and performs database operations using **SQLite**.
-
+- **Backend**: Built using **.NET 8**. The backend handles API requests, allows user authentication using jwt, manages the expense and budget data, and performs database operations using **SQLite**.
+- **Authentication**: The application uses JSON Web Token (JWT) for secure user authentication, when the client logs in, the backend generates a **jwt** which is sent to the client and stored in the local storage. The client includes the token in the **authorization** header for API requests.
 The frontend and backend are separate but work together to provide a seamless user experience for tracking expenses.
 
 ## Technologies Used
@@ -39,8 +40,6 @@ The frontend and backend are separate but work together to provide a seamless us
 
 ### Dev Tools:
 - **TypeScript**: A statically typed superset of JavaScript.
-- **Karma/Jasmine**: Used for unit testing Angular components.
-- **Jasmine**: A testing framework for JavaScript.
 - **Swagger**: For API documentation and testing.
   
 ## Frontend Setup
@@ -61,8 +60,7 @@ express@^4.18.2
 ng2-charts@^7.0.0
 
 
-
-5. Serve the Angular application
+4. Serve the Angular application
 
 ## Backend Setup:
 
@@ -84,24 +82,47 @@ GET /api/budget/status: Checks if expenses for the current month exceed the budg
 GET /api/budget/last-12-months: Fetches budgets for the last 12 months.
 
 2.**Expense**
-GET /api/expense: Fetches all expenses.
-POST /api/expense: Creates a new expense.
-DELETE /api/expense/{id}: Deletes an expense by its ID.
-GET /api/expense/monthly: Fetches the monthly expense totals.
-GET /api/expense/totals-by-category: Fetches total expenses by category for the current month.
-GET /api/expense/monthly-totals: Fetches monthly expense totals for the last 12 months.
+**GET /api/expense**: Fetches all expenses.
+
+**POST /api/expense**: Creates a new expense.
+
+**DELETE /api/expense/{id}**: Deletes an expense by its ID.
+
+**GET /api/expense/monthly**: Fetches the monthly expense totals.
+
+**GET /api/expense/totals-by-category**: Fetches total expenses by category for the current month.
+
+**GET /api/expense/monthly-totals**: Fetches monthly expense totals for the last 12 months.
+
+3.**Authentication**:
+
+**POST /api/auth/register**: for signing up.
+
+**POST /api/auth/login**: for signing in.
+
+For testing the API's i used **Postman API**.
+
 
 ## Frontend Features
 **Dashboard Overview**: Displays an overview of the expenses and budgets for the last 12 months, including charts and progress indicators.
+
 **Charts**: Visualizes expense data using ngx-charts and chart.js.
+
 **Expense Tracking**: Allows users to input and track their expenses.
+
 **Budget Tracking**: Allows users to define budgets and monitor their progress.
+
 **Responsive Design**: The application is fully responsive, designed for mobile and desktop devices.
 
+
 ## Backend Features
+
 **Authentication**: Secure user authentication using JWT tokens.
+
 **Expense Management**: Manages expenses by storing, updating, and retrieving them.
+
 **Budget Management**: Allows users to define and manage their budgets.
+
 **Monthly Expense Calculation**: Aggregates expenses on a monthly basis to show overall spending trends.
 
 
